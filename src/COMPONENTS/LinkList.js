@@ -81,41 +81,6 @@ const NEW_VOTES_SUBSCRIPTION = gql`
 
 class LinkList extends Component {
 
-    render() {
-
-        this.setState(this.sate)
-
-        return (
-        <Query 
-            query={FEED_QUERY} 
-            variables={{ orderBy: `createdAt_DESC` }}
-        >
-        {({ loading, error, data, subscribeToMore }) => {
-            if (loading) return <div>Fetching</div>
-            if (error) return <div>Error: ${error.message}</div>
-
-            this._subscribeToNewLinks(subscribeToMore)
-            this._subscribeToNewVotes(subscribeToMore)
-
-            const linksToRender = data.feed.links
-    
-            return (
-            <div>
-                {linksToRender.map((link, index) => (
-                    <Link
-                        key={link.id}
-                        link={link}
-                        index={index}
-                        updateStoreAfterVote={this._updateCacheAfterVote}
-                    />
-                ))}
-            </div>
-            )
-        }}
-        </Query>
-        )
-    }
-
     _updateCacheAfterVote = (store, createVote, linkId) => {
         // Read the current state of the cached data for the FEED_QUERY from the store.
         const data = store.readQuery({ query: FEED_QUERY })
@@ -153,6 +118,38 @@ class LinkList extends Component {
           document: NEW_VOTES_SUBSCRIPTION
         })
       }
+
+    render() {
+
+        return (
+        <Query 
+            query={FEED_QUERY} 
+            variables={{ orderBy: `createdAt_DESC` }}
+        >
+            {({ loading, error, data, subscribeToMore }) => {
+                if (loading) return <div>Fetching</div>
+                if (error) return <div>Error: ${error.message}</div>
+
+                this._subscribeToNewLinks(subscribeToMore)
+                this._subscribeToNewVotes(subscribeToMore)
+
+                const linksToRender = data.feed.links
+        
+                return (
+                <div>
+                    {linksToRender.map((link, index) => (
+                        <Link
+                            link={link}
+                            index={index}
+                            updateStoreAfterVote={this._updateCacheAfterVote}
+                        />
+                    ))}
+                </div>
+                )
+            }}
+        </Query>
+        )
+    }
 }
 
 export default LinkList

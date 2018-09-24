@@ -54,7 +54,7 @@ class CreateLink extends Component {
                 })
             }}            
         >
-            {postMutation => <button onClick={postMutation}>Submit</button>}
+            {PostMutation => <button onClick={PostMutation}>Submit</button>}
         </Mutation>
 
       </div>

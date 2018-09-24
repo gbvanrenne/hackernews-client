@@ -5,6 +5,7 @@ import CreateLink from './CreateLink'
 import Login from './Login'
 import Search from './Search'
 import ShowLocation from './ShowLocation'
+import EditLink from './EditLink'
 
 import { Switch, Route } from 'react-router-dom'
 
@@ -18,6 +19,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={LinkList} />
             <Route exact path="/create" component={CreateLink} />
+            <Route path="/editLink" component={EditLink} />
             <Route exact path="/login" component={Login} />
             <Route exact path='/search' component={Search} />
             <Route exact path='/current_path' component={ShowLocation} />

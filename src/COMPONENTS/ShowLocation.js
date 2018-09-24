@@ -7,14 +7,11 @@ class ShowLocation extends React.Component {
   render() {
     // const { match, location, history } = this.props
 
-    if (this.props.visible) {
-      return (
-        <div>
-          <ReactJson src={this.props.vars} />
-        </div>
-      )
-    }
-    return (<div>Clear Path</div>)
+    return (
+      <div>
+        <ReactJson src={this.props} />
+      </div>
+    )
   }
 }
 
